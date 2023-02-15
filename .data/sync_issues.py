@@ -130,7 +130,7 @@ def process_directory(repo, path):
             dir_issues_ids.append(issue_id)
 
         # Set the parent field for all duplicates in this directory
-        if len(files) > 1 and parent is None:
+        if len(files) > 1 and parent is None and severity != "false":
             raise Exception(
                 "Issue %s does not have a primary file (-best.md)." % item.path
             )

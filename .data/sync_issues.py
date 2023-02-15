@@ -90,7 +90,7 @@ def process_directory(repo, path):
         dir_issues_ids = []
         severity = "false"
         if item.type == "dir":
-            closed = any(x in path for x in ["low", "false"])
+            closed = any(x in item.name for x in ["low", "false"])
             # If it's a directory, we have some duplicate issues
             files = list(repo.get_contents(item.path))
             try:

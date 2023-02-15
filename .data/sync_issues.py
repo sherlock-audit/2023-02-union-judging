@@ -1,5 +1,6 @@
 import datetime
 import os
+import re
 import time
 from functools import lru_cache, wraps
 
@@ -111,7 +112,8 @@ def process_directory(repo, path):
 
             body = file.decoded_content.decode("utf-8")
             auditor = body.split("\n")[0]
-            title = auditor + " - " + body.split("\n")[4].split("# ")[1]
+            issue_title = re.match(r"^(?:[#\s]+)(.*)$", body.split("\n")[4]).group(1)
+            title = f"{auditor} - {issue_title}"
 
             # Stop the script if an issue is found multiple times in the filesystem
             if issue_id in issues.keys():

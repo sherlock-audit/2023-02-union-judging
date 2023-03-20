@@ -3,7 +3,7 @@
 Source: https://github.com/sherlock-audit/2023-02-union-judging/issues/41 
 
 ## Found by 
-hyh, seyni
+seyni, hyh
 
 ## Summary
 
@@ -133,6 +133,15 @@ The most correct way to reflect this, as I see it, is to mark #4 and #39 as Medi
 @kingjacob 
 Agree with the @dmitriia . 
 Considering #4 & #39 as separate mediums. 
+
+**kingjacob**
+
+https://github.com/unioncredit/union-v2-contracts/pull/105
+PR also fixes the related 4,31,41,39
+
+**dmitriia**
+
+Looks ok
 
 
 
@@ -331,6 +340,18 @@ https://github.com/sherlock-audit/2023-02-union/blob/main/union-v2-contracts/con
         }
 ```
 
+## Discussion
+
+**kingjacob**
+
+https://github.com/unioncredit/union-v2-contracts/pull/111
+
+**dmitriia**
+
+Looks ok
+
+
+
 # Issue H-3: Staker can perform rewards withdrawal every overdueBlocks less 1 and have zero frozenCoinAge 
 
 Source: https://github.com/sherlock-audit/2023-02-union-judging/issues/25 
@@ -509,6 +530,23 @@ This way total staked, locked, frozen counters will be kept since staker incepti
 
 Manipulation surface described will not be viable as withdrawRewards() will only determine the reward period and will not be resetting the whole reward accounting.
 
+## Discussion
+
+**kingjacob**
+
+
+https://github.com/unioncredit/union-v2-contracts/pull/109
+
+And two connected prs relating to small issues with the initial fix pr:
+1. https://github.com/unioncredit/union-v2-contracts/pull/118
+2. https://github.com/unioncredit/union-v2-contracts/pull/119
+
+**dmitriia**
+
+Looks ok
+
+
+
 # Issue M-1: # [M-04] voucherIndexes is not updated when member cancel the voucher 
 
 Source: https://github.com/sherlock-audit/2023-02-union-judging/issues/39 
@@ -541,6 +579,19 @@ Manual
 Add update voucherIndexes in the `_cancelVouchInternal` function, below line 604 of UToken.sol:
 
             voucherIndexes[borrower][lastVoucher.staker] = removeVoucherIndex.Idx
+
+
+## Discussion
+
+**kingjacob**
+
+https://github.com/unioncredit/union-v2-contracts/pull/105
+PR also fixes the related 4,31,41,39
+
+**dmitriia**
+
+Looks ok
+
 
 
 # Issue M-2: Users can lose their staking rewards. 
@@ -993,6 +1044,14 @@ This is valid but medium severity as its inaccurate rewards not a loss of funds.
 Considering this issue a valid medium as there is a precondition of an underfunded contract for this to occur which is highly unlikely. 
 
 
+**kingjacob**
+
+https://github.com/unioncredit/union-v2-contracts/pull/106
+
+**dmitriia**
+
+Looks ok
+
 
 
 # Issue M-3: Market adapter removal corrupts withdraw sequence 
@@ -1127,6 +1186,19 @@ https://github.com/sherlock-audit/2023-02-union/blob/main/union-v2-contracts/con
     }
 ```
 
+## Discussion
+
+**kingjacob**
+
+24 -https://github.com/unioncredit/union-v2-contracts/pull/108
+
+
+**dmitriia**
+
+Looks ok given that setWithdrawSequence() is always set duplicate-free `withdrawSeq`
+
+
+
 # Issue M-4: Attackers can call UToken.redeem() and drain the funds in assetManager 
 
 Source: https://github.com/sherlock-audit/2023-02-union-judging/issues/12 
@@ -1187,6 +1259,14 @@ points valid, but not easy to increase exchangeRate exponentially. becasue excha
 **hrishibhat**
 
 Agree with the Sponsor on the severity of the issue as exchangeRate cannot be increase exponentially. Considering this a valid medium. 
+
+**kingjacob**
+
+https://github.com/unioncredit/union-v2-contracts/pull/113
+
+**dmitriia**
+
+Looks ok
 
 
 
@@ -1392,6 +1472,14 @@ Udai minters dont earn interest because reserve factor is always set to 100% and
 
 the solution isnt twap or anything duration based because you cant allocate unsecured interest before its paid. On a short time horizon this leads to some minters getting more than those whove been in the pool longer, But over a long enough horizon it averages out. So the solution is an exit fee paid to reservefactor to make 1-3 block deposits and anything flashloan enabled unprofitable. 
 
+**kingjacob**
+
+https://github.com/unioncredit/union-v2-contracts/pull/117
+
+**dmitriia**
+
+Looks ok
+
 
 
 # Issue M-6: Index mismatch on vouchers and vouchees might lead to invalid borrower-voucher-staker association 
@@ -1419,4 +1507,17 @@ Manual Review
 
 ## Recommendation
 We suggest to check the `vouchers[borrower]` length before writing to `vouchees` map.
+
+## Discussion
+
+**kingjacob**
+
+https://github.com/unioncredit/union-v2-contracts/pull/105
+PR also fixes the related 4,31,41,39
+
+**dmitriia**
+
+Looks ok
+
+
 
